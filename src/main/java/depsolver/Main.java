@@ -129,6 +129,7 @@ public class Main {
         if(score <= lowestScore) {
             lowestScoreInstalls = install;
             lowestScoreDoNotInstalls = doNotInstall;
+            lowestScore = score;
         }
     }
 

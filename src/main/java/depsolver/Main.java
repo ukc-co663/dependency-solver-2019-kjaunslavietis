@@ -303,7 +303,8 @@ public class Main {
           try {
               nextPackageDependencies = getPackagesFromStringWithException(nextPackageDependencyRaw, packageVersions);
           } catch (NonexistantDependencyException e) {
-              return f.and(getPackageVariable(p, f), f.not(getPackageVariable(p, f))); //this package has a dependency that can't be satisfied because none of the options exist in repo, so return an unsatisfiable constraint, effectively preventing this package from being used
+//              return f.and(getPackageVariable(p, f), f.not(getPackageVariable(p, f))); //this package has a dependency that can't be satisfied because none of the options exist in repo, so return an unsatisfiable constraint, effectively preventing this package from being used
+              return f.not(getPackageVariable(p, f));
           }
 
           List<Formula> dependencyOuterOr = new LinkedList<>();

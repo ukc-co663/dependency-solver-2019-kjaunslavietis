@@ -1,5 +1,7 @@
 #!/bin/bash
+set -x
 CLASSPATH=classes:$(ls lib/* | sed 's/ /:/')
-JAVAS=$(find src -name '*.java')
+echo $CLASSPATH
 mkdir -p classes
-javac -cp $CLASSPATH -sourcepath src -d classes $JAVAS
+javac -cp "$CLASSPATH" -sourcepath src/main/java src/main/java/depsolver/Main.java
+#javac -sourcepath src/main/java -d classes $JAVAS

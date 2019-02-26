@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52545822-4b7d-45f4-9949-6d1c103518ce" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_logicng_logicng_1_4_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/org_ow2_sat4j_org_ow2_sat4j_core_2_3_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/compile.sh" beforeDir="false" afterPath="$PROJECT_DIR$/compile.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install_deps.sh" beforeDir="false" afterPath="$PROJECT_DIR$/install_deps.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/depsolver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/example-0/constraints.json" beforeDir="false" afterPath="$PROJECT_DIR$/tests/example-0/constraints.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +22,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="283" lean-forward="true" selection-start-line="283" selection-end-line="283" />
+            <state relative-caret-position="189">
+              <caret line="306" column="52" selection-start-line="306" selection-start-column="52" selection-end-line="306" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -248,15 +245,24 @@
       <workItem from="1550790195702" duration="89000" />
       <workItem from="1550925788518" duration="135000" />
       <workItem from="1551213709586" duration="824000" />
-      <workItem from="1551219244363" duration="1339000" />
+      <workItem from="1551219244363" duration="3357000" />
     </task>
+    <task id="LOCAL-00001" summary="Update install_deps">
+      <created>1551221464419</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1551221464419</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47326000" />
+    <option name="totallyTimeSpent" value="49344000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -264,7 +270,7 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.284375" side_tool="true" visible="true" weight="0.6473073" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.284375" side_tool="true" visible="true" weight="0.4223865" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
@@ -279,7 +285,7 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.715625" visible="true" weight="0.6473073" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.715625" visible="true" weight="0.4223865" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -295,6 +301,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update install_deps" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update install_deps" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -307,7 +317,7 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="nextRepoPackage.getName().equals(&quot;debconf-2.0&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
-          <line>460</line>
+          <line>461</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
@@ -544,8 +554,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="283" lean-forward="true" selection-start-line="283" selection-end-line="283" />
+        <state relative-caret-position="189">
+          <caret line="306" column="52" selection-start-line="306" selection-start-column="52" selection-end-line="306" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

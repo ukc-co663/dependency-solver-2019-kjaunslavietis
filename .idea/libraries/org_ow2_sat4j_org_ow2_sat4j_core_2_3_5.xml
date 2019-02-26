@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="org.ow2.sat4j:org.ow2.sat4j.core:2.3.5" type="repository">
+    <properties maven-id="org.ow2.sat4j:org.ow2.sat4j.core:2.3.5" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/org.ow2.sat4j.core-2.3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

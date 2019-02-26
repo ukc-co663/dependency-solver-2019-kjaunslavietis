@@ -48,7 +48,7 @@ public class Main {
     HashMap<String, Set<Package>> packageVersions = new HashMap<>();
 
     for(Package p : repo) {
-      stringToPackageMappings.put(p.getName() + "= "+ p.getVersion(), p);
+      stringToPackageMappings.put(p.getName() + "="+ p.getVersion(), p);
       Set<Package> versions = packageVersions.getOrDefault(p.getName(), new HashSet<>());
       versions.add(p);
       packageVersions.put(p.getName(), versions);

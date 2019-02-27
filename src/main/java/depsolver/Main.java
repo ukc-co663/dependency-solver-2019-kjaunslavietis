@@ -143,9 +143,13 @@ public class Main {
         System.out.println(constructStringForInstall(nextUninstall, false) + ',');
     }
 
+    String installString = "";
     for(Package nextInstall : installs) {
-        System.out.println(constructStringForInstall(nextInstall, true) + ',');
+        installString += constructStringForInstall(nextInstall, true) + ',';
     }
+
+    installString = installString.substring(0, installString.length() - 1);
+    System.out.println(installString);
     System.out.println(']');
   }
 

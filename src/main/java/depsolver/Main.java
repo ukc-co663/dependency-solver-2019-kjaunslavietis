@@ -115,6 +115,8 @@ public class Main {
 
     Set<Package> initialPackages = initial.stream().map(nextPackageString -> stringToPackageMappings.get(nextPackageString)).collect(Collectors.toSet());
 
+//    finalInstalled = removeInitiallySatisfiedConstraints(initialPackages, finalInstalled, finalDoNotInstall);
+
     List<Assignment> validModels = getValidStates(repo, finalInstalled, finalDoNotInstall, packageVersions);
 
     Set<Package> lowestScoreInstalls = null;
@@ -139,18 +141,37 @@ public class Main {
     LinkedHashSet<Package> installs = getOrderOfInstalls(lowestScoreInstalls, lowestScoreDoNotInstalls, packageVersions);
 
     System.out.println('[');
+    String actionString = "";
     for(Package nextUninstall : uninstalls) {
-        System.out.println(constructStringForInstall(nextUninstall, false) + ',');
+        actionString += constructStringForInstall(nextUninstall, false) + ',';
     }
 
-    String installString = "";
     for(Package nextInstall : installs) {
-        installString += constructStringForInstall(nextInstall, true) + ',';
+        actionString += constructStringForInstall(nextInstall, true) + ',';
     }
 
-    installString = installString.substring(0, installString.length() - 1);
-    System.out.println(installString);
+    if(actionString.indexOf(',') != -1) actionString = actionString.substring(0, actionString.length() - 1);
+    System.out.println(actionString);
     System.out.println(']');
+  }
+
+  private static Set<Set<Package>> removeInitiallySatisfiedConstraints(Set<Package> initial, Set<Set<Package>> installConstraints, Set<Package> doNotInstallConstraints) {
+      Set<Set<Package>> result = new HashSet<>();
+    for(Set<Package> nextInstallConstraintAnd : installConstraints) {
+        boolean definitelySatisfied = true;
+        for(Package nextInstallConstraintOr : nextInstallConstraintAnd) {
+            if(!initial.contains(nextInstallConstraintOr)) {
+                definitelySatisfied = false;
+                break;
+            }
+        }
+
+        if(!definitelySatisfied) {
+            result.add(nextInstallConstraintAnd);
+        }
+    }
+
+    return result;
   }
 
   private static LinkedHashSet<Package> getOrderOfInstalls(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) {
@@ -452,7 +473,7 @@ public class Main {
     }
 
     private static Formula negateAllAndGenerateAnd(Set<Package> packages, FormulaFactory f) {
-        List<Formula> negatedPackages = packages.stream().map(nextPackage -> f.not(f.variable(nextPackage.getName()+nextPackage.getVersion()))).collect(Collectors.toList());
+        List<Formula> negatedPackages = packages.stream().map(nextPackage -> f.not(getPackageVariable(nextPackage, f))).collect(Collectors.toList());
         return f.and(negatedPackages);
     }
 

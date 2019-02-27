@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52545822-4b7d-45f4-9949-6d1c103518ce" name="Default" comment="">
+    <list default="true" id="52545822-4b7d-45f4-9949-6d1c103518ce" name="Default" comment="Test commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" afterDir="false" />
     </list>
@@ -21,8 +21,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="153" column="40" selection-start-line="153" selection-start-column="40" selection-end-line="153" selection-end-column="40" />
+            <state relative-caret-position="171">
+              <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getOrderOfInstalls#0;class#Main#0" />
@@ -159,7 +159,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main - Seen9">
+  <component name="RunManager" selected="Application.Main - Seen5">
     <configuration name="Main - Example0" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="dependency-solver-2019-kjaunslavietis" />
@@ -176,6 +176,12 @@
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="dependency-solver-2019-kjaunslavietis" />
       <option name="PROGRAM_PARAMETERS" value="&quot;tests/seen-1/repository.json&quot; &quot;tests/seen-1/initial.json&quot; &quot;tests/seen-1/constraints.json&quot;" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="Main - Seen5" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="dependency-solver-2019-kjaunslavietis" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;tests/seen-5/repository.json&quot; &quot;tests/seen-5/initial.json&quot; &quot;tests/seen-5/constraints.json&quot;" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     </configuration>
     <configuration name="Main - Seen9" type="Application" factoryName="Application" temporary="true">
@@ -229,6 +235,7 @@
       <item itemvalue="Application.Main - Seen1" />
       <item itemvalue="Application.Main - Example0" />
       <item itemvalue="Application.Main - Seen0" />
+      <item itemvalue="Application.Main - Seen5" />
       <item itemvalue="Application.Main - Seen9" />
     </list>
     <recent_temporary>
@@ -259,7 +266,7 @@
       <workItem from="1550925788518" duration="135000" />
       <workItem from="1551213709586" duration="824000" />
       <workItem from="1551219244363" duration="7216000" />
-      <workItem from="1551277195617" duration="4359000" />
+      <workItem from="1551277195617" duration="4735000" />
     </task>
     <task id="LOCAL-00001" summary="Update install_deps">
       <created>1551221464419</created>
@@ -317,11 +324,18 @@
       <option name="project" value="LOCAL" />
       <updated>1551278623262</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fix incorrectly constructed uninstall variables">
+      <created>1551292449484</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1551292449484</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57562000" />
+    <option name="totallyTimeSpent" value="57938000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -372,7 +386,8 @@
     <MESSAGE value="Fix one MORE tiny lil bug (this one deffo didn't break anything, promise)" />
     <MESSAGE value="Change output format" />
     <MESSAGE value="Fix up run_tests.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix up run_tests.sh" />
+    <MESSAGE value="Fix incorrectly constructed uninstall variables" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix incorrectly constructed uninstall variables" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -380,13 +395,13 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="nextRepoPackage.getName().equals(&quot;debconf-2.0&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
-          <line>488</line>
+          <line>487</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
-          <line>307</line>
+          <line>306</line>
           <properties />
           <option name="timeStamp" value="57" />
         </line-breakpoint>
@@ -689,8 +704,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="153" column="40" selection-start-line="153" selection-start-column="40" selection-end-line="153" selection-end-column="40" />
+        <state relative-caret-position="171">
+          <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getOrderOfInstalls#0;class#Main#0" />

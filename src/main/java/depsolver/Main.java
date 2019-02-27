@@ -147,7 +147,7 @@ public class Main {
     }
 
     for(Package nextInstall : installs) {
-        actionString += constructStringForInstall(nextInstall, true) + ',';
+        if(!initialPackages.contains(nextInstall)) actionString += constructStringForInstall(nextInstall, true) + ',';
     }
 
     if(actionString.indexOf(',') != -1) actionString = actionString.substring(0, actionString.length() - 1);

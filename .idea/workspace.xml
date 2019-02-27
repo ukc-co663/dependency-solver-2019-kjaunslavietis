@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="52545822-4b7d-45f4-9949-6d1c103518ce" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compile.sh" beforeDir="false" afterPath="$PROJECT_DIR$/compile.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_tests.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run_tests.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solve" beforeDir="false" afterPath="$PROJECT_DIR$/solve" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +23,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="131" column="32" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="32" />
+            <state relative-caret-position="241">
+              <caret line="140" column="20" selection-start-line="140" selection-start-column="4" selection-end-line="140" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getOrderOfInstalls#0;class#Main#0" />
@@ -41,8 +43,9 @@
       <find>getPackagesFrom</find>
       <find>compareto</find>
       <find>Integer.p</find>
-      <find>Integer.parseInt(p.getVersion()) -  Integer.parseInt(versionNumber)</find>
+      <find />
       <find>versionNumber.compareTo(p.getVersion())</find>
+      <find>package</find>
     </findStrings>
     <replaceStrings>
       <replace>versionNumber.compareTo(p.getVersion())</replace>
@@ -76,8 +79,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -120,7 +124,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -154,7 +157,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main - Seen0">
+  <component name="RunManager" selected="Application.Main - Seen9">
     <configuration name="Main - Example0" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="dependency-solver-2019-kjaunslavietis" />
@@ -253,7 +256,8 @@
       <workItem from="1550790195702" duration="89000" />
       <workItem from="1550925788518" duration="135000" />
       <workItem from="1551213709586" duration="824000" />
-      <workItem from="1551219244363" duration="4827000" />
+      <workItem from="1551219244363" duration="7216000" />
+      <workItem from="1551277195617" duration="659000" />
     </task>
     <task id="LOCAL-00001" summary="Update install_deps">
       <created>1551221464419</created>
@@ -290,11 +294,25 @@
       <option name="project" value="LOCAL" />
       <updated>1551224552932</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix one MORE tiny lil bug (this one deffo didn't break anything, promise)">
+      <created>1551224936241</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1551224936241</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Change output format">
+      <created>1551225846993</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1551225846993</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50814000" />
+    <option name="totallyTimeSpent" value="53862000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -302,15 +320,14 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32946146" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.28541666" side_tool="true" visible="true" weight="0.6029567" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5052083" side_tool="true" visible="true" weight="0.14889124" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49583334" weight="0.32946146" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49479166" weight="0.32946146" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -321,7 +338,7 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.71458334" visible="true" weight="0.6029567" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7140625" weight="0.6029567" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -329,6 +346,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32946146" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,29 +360,37 @@
     <MESSAGE value="Update compile.sh" />
     <MESSAGE value="Include lib" />
     <MESSAGE value="Fix one tiny lil bug (this one deffo didn't break anything, promise)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix one tiny lil bug (this one deffo didn't break anything, promise)" />
+    <MESSAGE value="Fix one MORE tiny lil bug (this one deffo didn't break anything, promise)" />
+    <MESSAGE value="Change output format" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change output format" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="nextRepoPackage.getName().equals(&quot;debconf-2.0&quot;)" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
-          <line>462</line>
+          <url />
+          <line>466</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <url />
           <line>126</line>
           <properties />
           <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url />
+          <line>311</line>
+          <properties />
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="52" />
+      <option name="time" value="53" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -468,6 +494,18 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="38" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#constructStringForInstall#0;class#Main#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4828">
@@ -623,8 +661,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="131" column="32" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="32" />
+        <state relative-caret-position="241">
+          <caret line="140" column="20" selection-start-line="140" selection-start-column="4" selection-end-line="140" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getOrderOfInstalls#0;class#Main#0" />

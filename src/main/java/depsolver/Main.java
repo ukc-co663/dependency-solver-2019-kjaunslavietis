@@ -4,10 +4,8 @@ import org.logicng.datastructures.Assignment;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
 import org.logicng.formulas.Variable;
-import org.logicng.solvers.CleaneLing;
 import org.logicng.solvers.MiniSat;
 import org.logicng.solvers.SATSolver;
-import org.logicng.solvers.sat.GlucoseSyrup;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -137,8 +135,9 @@ public class Main {
 
 
     Set<Package> uninstalls = getSetIntersection(lowestScoreDoNotInstalls, initialPackages);
+    initialPackages.removeAll(uninstalls);
 
-    LinkedHashSet<Package> installs = getOrderOfInstalls(lowestScoreInstalls, lowestScoreDoNotInstalls, packageVersions);
+    LinkedList<Package> installs = getOrderOfInstallsSlow(initialPackages, lowestScoreInstalls, packageVersions);
 
     System.out.println('[');
     String actionString = "";
@@ -174,7 +173,57 @@ public class Main {
     return result;
   }
 
-  private static LinkedHashSet<Package> getOrderOfInstalls(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) {
+  private static LinkedList getOrderOfInstallsSlow(Set<Package> initial, Set<Package> install, Map<String, Set<Package>> packageVersions) {
+      LinkedList<Package> packageQueue = new LinkedList<>(install);
+
+      LinkedList<Package> result = new LinkedList<>(initial);
+
+      while(!packageQueue.isEmpty()) {
+          Package p = packageQueue.pollFirst();
+
+          if(hasUnmetDependencies(p, result, packageVersions)) {
+              packageQueue.addLast(p);
+          } else {
+              result.add(p);
+          }
+      }
+
+      return result;
+  }
+
+  private static boolean hasUnmetDependencies(Package p, List<Package> installed,  Map<String, Set<Package>> packageVersions) {
+      List<List<String>> packageDependenciesRaw = p.getDepends();
+
+      for(List<String> nextDependencyRawAnd : packageDependenciesRaw) {
+          boolean satisfied = false;
+
+          Set<Set<Package>> nextDependencyAnd = getPackagesFromString(nextDependencyRawAnd, packageVersions);
+
+          for(Set<Package> nextDependencyOrOuter : nextDependencyAnd) {
+              boolean found = false;
+
+              for(Package nextDependencyOrInner : nextDependencyOrOuter) {
+                  if(installed.contains(nextDependencyOrInner)) {
+                      found = true;
+                      break;
+                  }
+              }
+
+              if(found) {
+                  satisfied = true;
+                  break;
+              }
+          }
+
+          if(!satisfied) {
+              return true;
+          }
+      }
+
+      return false;
+  }
+
+  private static LinkedHashSet<Package> getOrderOfInstallsFastButNotWorking(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) {
       HashMap<Package, List<Package>> incomingEdges = new HashMap<>();
       HashMap<Package, List<Package>> outgoingEdges = new HashMap<>();
 
@@ -199,10 +248,10 @@ public class Main {
                         if(install.contains(nextDependencyOrInner) && !doNotInstall.contains(nextDependencyOrInner)) validDependenciesOrInner.add(nextDependencyOrInner); // we can stop as soon as we find one
                     }
 
-                    if(!validDependenciesOrInner.isEmpty()) validDependenciesOrOuter.add(validDependenciesOrInner.getFirst()); // we only care about one that matches. we can stop as soon as we find one
+                    validDependenciesOrOuter.addAll(validDependenciesOrInner); // we only care about one that matches. we can stop as soon as we find one
                 }
 
-                validDependenciesAnd.add(validDependenciesOrOuter.getFirst());
+                validDependenciesAnd.add(validDependenciesOrOuter.stream().filter(nextDependency -> incomingEdges.get(nextDependency) == null || !incomingEdges.get(nextDependency).contains(nextPackageToInstall)).findFirst().get());
           }
 
           List<Package> previousIncomingEdges = incomingEdges.getOrDefault(nextPackageToInstall, new LinkedList<>());
@@ -236,7 +285,7 @@ public class Main {
       }
 
 
-      Collections.reverse(result);
+      Collections.reverse(result); // need to avoid creating a circular guy, as happens in seen-6
       return new LinkedHashSet<>(result);
   }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52545822-4b7d-45f4-9949-6d1c103518ce" name="Default" comment="Test commit">
+    <list default="true" id="52545822-4b7d-45f4-9949-6d1c103518ce" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/depsolver/Main.java" afterDir="false" />
     </list>
@@ -21,11 +21,11 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
+            <state relative-caret-position="-8">
+              <caret line="438" column="37" lean-forward="true" selection-start-line="438" selection-start-column="37" selection-end-line="438" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+                <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
                 <element signature="method#constructStringForInstall#0;class#Main#0" />
                 <element signature="method#calculateModelScore#0;class#Main#0" />
                 <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -81,9 +81,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -126,6 +123,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -159,7 +159,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main - Seen5">
+  <component name="RunManager" selected="Application.Main - Seen4">
     <configuration name="Main - Example0" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="dependency-solver-2019-kjaunslavietis" />
@@ -178,10 +178,22 @@
       <option name="PROGRAM_PARAMETERS" value="&quot;tests/seen-1/repository.json&quot; &quot;tests/seen-1/initial.json&quot; &quot;tests/seen-1/constraints.json&quot;" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     </configuration>
+    <configuration name="Main - Seen4" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="dependency-solver-2019-kjaunslavietis" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;tests/seen-4/repository.json&quot; &quot;tests/seen-4/initial.json&quot; &quot;tests/seen-4/constraints.json&quot;" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+    </configuration>
     <configuration name="Main - Seen5" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="dependency-solver-2019-kjaunslavietis" />
       <option name="PROGRAM_PARAMETERS" value="&quot;tests/seen-5/repository.json&quot; &quot;tests/seen-5/initial.json&quot; &quot;tests/seen-5/constraints.json&quot;" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="Main - Seen6" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="dependency-solver-2019-kjaunslavietis" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;tests/seen-6/repository.json&quot; &quot;tests/seen-6/initial.json&quot; &quot;tests/seen-6/constraints.json&quot;" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     </configuration>
     <configuration name="Main - Seen9" type="Application" factoryName="Application" temporary="true">
@@ -236,6 +248,8 @@
       <item itemvalue="Application.Main - Example0" />
       <item itemvalue="Application.Main - Seen0" />
       <item itemvalue="Application.Main - Seen5" />
+      <item itemvalue="Application.Main - Seen6" />
+      <item itemvalue="Application.Main - Seen4" />
       <item itemvalue="Application.Main - Seen9" />
     </list>
     <recent_temporary>
@@ -266,7 +280,8 @@
       <workItem from="1550925788518" duration="135000" />
       <workItem from="1551213709586" duration="824000" />
       <workItem from="1551219244363" duration="7216000" />
-      <workItem from="1551277195617" duration="4735000" />
+      <workItem from="1551277195617" duration="9701000" />
+      <workItem from="1551303331923" duration="3653000" />
     </task>
     <task id="LOCAL-00001" summary="Update install_deps">
       <created>1551221464419</created>
@@ -331,15 +346,21 @@
       <option name="project" value="LOCAL" />
       <updated>1551292449484</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fix bug where initial packages appear in the install list">
+      <created>1551292812820</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1551292812820</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57938000" />
+    <option name="totallyTimeSpent" value="66557000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -351,7 +372,7 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49427083" visible="true" weight="0.32946146" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49427083" weight="0.32946146" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -362,7 +383,7 @@
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7135417" weight="0.42661035" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.7135417" visible="true" weight="0.18162619" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -387,7 +408,8 @@
     <MESSAGE value="Change output format" />
     <MESSAGE value="Fix up run_tests.sh" />
     <MESSAGE value="Fix incorrectly constructed uninstall variables" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix incorrectly constructed uninstall variables" />
+    <MESSAGE value="Fix bug where initial packages appear in the install list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug where initial packages appear in the install list" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -395,21 +417,47 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="nextRepoPackage.getName().equals(&quot;debconf-2.0&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
-          <line>487</line>
+          <line>536</line>
           <properties />
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
-          <line>306</line>
+          <line>287</line>
           <properties />
-          <option name="timeStamp" value="57" />
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <line>270</line>
+          <properties />
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <line>253</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <line>183</line>
+          <properties />
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <line>355</line>
+          <properties />
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="58" />
+      <option name="time" value="74" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -515,11 +563,25 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3655">
+          <caret line="215" column="62" lean-forward="true" selection-start-line="215" selection-start-column="62" selection-end-line="215" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
+            <element signature="method#constructStringForInstall#0;class#Main#0" />
+            <element signature="method#calculateModelScore#0;class#Main#0" />
+            <element signature="method#getSetIntersection#0;class#Main#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="38" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -533,7 +595,7 @@
           <caret line="284" selection-start-line="284" selection-end-line="284" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -547,7 +609,7 @@
           <caret line="259" column="171" selection-start-line="259" selection-start-column="171" selection-end-line="259" selection-end-column="171" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -561,7 +623,7 @@
           <caret line="284" column="173" selection-start-line="284" selection-start-column="173" selection-end-line="284" selection-end-column="173" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -575,7 +637,7 @@
           <caret line="284" column="173" selection-start-line="284" selection-start-column="173" selection-end-line="284" selection-end-column="173" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -589,7 +651,7 @@
           <caret line="282" column="96" selection-start-line="282" selection-start-column="96" selection-end-line="282" selection-end-column="96" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -603,7 +665,7 @@
           <caret line="283" column="26" lean-forward="true" selection-start-line="283" selection-start-column="26" selection-end-line="283" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -617,7 +679,7 @@
           <caret line="296" column="109" selection-start-line="296" selection-start-column="109" selection-end-line="296" selection-end-column="109" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -631,7 +693,7 @@
           <caret line="186" column="23" selection-start-line="186" selection-start-column="23" selection-end-line="186" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -645,7 +707,7 @@
           <caret line="195" column="14" lean-forward="true" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -659,7 +721,7 @@
           <caret line="100" column="86" lean-forward="true" selection-start-line="100" selection-start-column="86" selection-end-line="100" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -673,7 +735,7 @@
           <caret column="13" lean-forward="true" selection-start-column="13" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />
@@ -704,11 +766,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="133" column="32" lean-forward="true" selection-start-line="133" selection-start-column="32" selection-end-line="133" selection-end-column="32" />
+        <state relative-caret-position="-8">
+          <caret line="438" column="37" lean-forward="true" selection-start-line="438" selection-start-column="37" selection-end-line="438" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getOrderOfInstalls#0;class#Main#0" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
             <element signature="method#calculateModelScore#0;class#Main#0" />
             <element signature="method#getSetIntersection#0;class#Main#0" />

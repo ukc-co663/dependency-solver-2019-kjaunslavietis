@@ -120,6 +120,10 @@ public class Main {
     Set<Package> lowestScoreInstalls = null;
     Set<Package> lowestScoreDoNotInstalls = null;
     Long lowestScore = Long.MAX_VALUE;
+    if(validModels.isEmpty()) {
+        System.out.println("[]");
+        return;
+    }
     for(Assignment nextModel : validModels) {
         Set<Package> install = nextModel.positiveLiterals().stream().map(v -> stringToPackageMappings.get(v.name())).collect(Collectors.toSet());
         Set<Package> doNotInstall = nextModel.negativeVariables().stream().map(v -> stringToPackageMappings.get(v.name())).collect(Collectors.toSet());
@@ -139,7 +143,7 @@ public class Main {
 
     LinkedList<Package> installs = getOrderOfInstallsSlow(initialPackages, lowestScoreInstalls, packageVersions);
 
-    System.out.println('[');
+    System.out.print('[');
     String actionString = "";
     for(Package nextUninstall : uninstalls) {
         actionString += constructStringForInstall(nextUninstall, false) + ',';
@@ -150,7 +154,7 @@ public class Main {
     }
 
     if(actionString.indexOf(',') != -1) actionString = actionString.substring(0, actionString.length() - 1);
-    System.out.println(actionString);
+    System.out.print(actionString);
     System.out.println(']');
   }
 
@@ -291,7 +295,8 @@ public class Main {
 
   private static String constructStringForInstall(Package p, boolean install) {
       StringBuilder s = new StringBuilder();
-      if(install) s.append("\"+");
+      s.append('"');
+      if(install) s.append("+");
       else s.append('-');
 
       s.append(p.getName());

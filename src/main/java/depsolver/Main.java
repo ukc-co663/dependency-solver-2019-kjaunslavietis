@@ -81,25 +81,25 @@ public class Main {
       Predicate<Package> versionPredicate;
       if(c.indexOf('>') > -1) {
         if(c.indexOf('=') > -1) {
-          String versionNumber = c.substring(c.indexOf('=') + 1);
-          versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) >= 0;
+          String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) >= 0;
         } else {
-          String versionNumber = c.substring(c.indexOf('>') + 1);
-          versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) > 0;
+          String versionNumber = stripVersionNumber(c.substring(c.indexOf('>') + 1));
+          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) > 0;
         }
         packageName = c.substring(1, c.indexOf('>'));
       } else if(c.indexOf('<') > -1) {
         if(c.indexOf('=') > -1) {
-          String versionNumber = c.substring(c.indexOf('=') + 1);
-          versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) <= 0;
+          String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) <= 0;
         } else {
-          String versionNumber = c.substring(c.indexOf('>') + 1);
-          versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) < 0;
+          String versionNumber = stripVersionNumber(c.substring(c.indexOf('>') + 1));
+          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) < 0;
         }
         packageName = c.substring(1, c.indexOf('<'));
       } else if(c.indexOf('=') > -1) {
-        String versionNumber = c.substring(c.indexOf('=') + 1);
-        versionPredicate = (Package p) -> p.getVersion().equals(versionNumber);
+        String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+        versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).equals(versionNumber);
         packageName = c.substring(1, c.indexOf('='));
       } else {
         versionPredicate = (Package p) -> true;
@@ -373,19 +373,14 @@ public class Main {
      * @param packageVersions
      * @return
      */
-  private static Formula getPackageDependenciesFormula(Package p, FormulaFactory f, Map<String, Set<Package>> packageVersions) {
+  private static Formula getPackageDependenciesFormula(Package p, FormulaFactory f, Map<String, Set<Package>> packageVersions) throws NonexistantDependencyException {
       List<List<String>> thisPackageDependenciesRaw = p.getDepends();
 
       List<Formula> dependenciesFormulas = new LinkedList<>();
 
       for(List<String> nextPackageDependencyRaw : thisPackageDependenciesRaw) {
           Set<Set<Package>> nextPackageDependencies = null;
-          try {
-              nextPackageDependencies = getPackagesFromStringWithException(nextPackageDependencyRaw, packageVersions);
-          } catch (NonexistantDependencyException e) {
-//              return f.and(getPackageVariable(p, f), f.not(getPackageVariable(p, f))); //this package has a dependency that can't be satisfied because none of the options exist in repo, so return an unsatisfiable constraint, effectively preventing this package from being used
-              return f.not(getPackageVariable(p, f));
-          }
+          nextPackageDependencies = getPackagesFromStringWithException(nextPackageDependencyRaw, packageVersions);
 
           List<Formula> dependencyOuterOr = new LinkedList<>();
 
@@ -443,25 +438,25 @@ public class Main {
             Predicate<Package> versionPredicate;
             if(c.indexOf('>') > -1) {
                 if(c.indexOf('=') > -1) {
-                    String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) >= 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) >= 0;
                 } else {
-                    String versionNumber = c.substring(c.indexOf('>') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) > 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('>') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) > 0;
                 }
                 packageName = c.substring(0, c.indexOf('>'));
             } else if(c.indexOf('<') > -1) {
                 if(c.indexOf('=') > -1) {
-                    String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) <= 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) <= 0;
                 } else {
-                    String versionNumber = c.substring(c.indexOf('<') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) < 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('<') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) < 0;
                 }
                 packageName = c.substring(0, c.indexOf('<'));
             } else if(c.indexOf('=') > -1) {
-                String versionNumber = c.substring(c.indexOf('=') + 1);
-                versionPredicate = (Package p) -> p.getVersion().equals(versionNumber);
+                String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+                versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).equals(versionNumber);
                 packageName = c.substring(0, c.indexOf('='));
             } else {
                 versionPredicate = (Package p) -> true;
@@ -473,6 +468,19 @@ public class Main {
         }
 
         return resultPackages;
+    }
+
+    private static String stripVersionNumber(String versionNumber) {
+        String[] parts = versionNumber.split(".");
+        StringBuffer result = new StringBuffer();
+        for(String nextPart : parts) {
+            Integer nextPartInt = Integer.parseInt(nextPart);
+            result.append(nextPartInt + ".");
+        }
+
+        if(result.indexOf(".") != -1) result.deleteCharAt(result.length() - 1);
+
+        return result.toString();
     }
 
     /**
@@ -490,25 +498,25 @@ public class Main {
             Predicate<Package> versionPredicate;
             if(c.indexOf('>') > -1) {
                 if(c.indexOf('=') > -1) {
-                    String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) >= 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) >= 0;
                 } else {
-                    String versionNumber = c.substring(c.indexOf('>') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) > 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('>') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) > 0;
                 }
                 packageName = c.substring(0, c.indexOf('>'));
             } else if(c.indexOf('<') > -1) {
                 if(c.indexOf('=') > -1) {
-                    String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) <= 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) <= 0;
                 } else {
-                    String versionNumber = c.substring(c.indexOf('<') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) < 0;
+                    String versionNumber = stripVersionNumber(c.substring(c.indexOf('<') + 1));
+                    versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) < 0;
                 }
                 packageName = c.substring(0, c.indexOf('<'));
             } else if(c.indexOf('=') > -1) {
-                String versionNumber = c.substring(c.indexOf('=') + 1);
-                versionPredicate = (Package p) -> p.getVersion().equals(versionNumber);
+                String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
+                versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).equals((versionNumber));
                 packageName = c.substring(0, c.indexOf('='));
             } else {
                 versionPredicate = (Package p) -> true;
@@ -535,11 +543,16 @@ public class Main {
         List<Formula> packageDefinitionFormulas = new LinkedList<>();
 
         for(Package nextRepoPackage : repo) {
-            Formula packageDefinitionFormula = f.not(getPackageVariable(nextRepoPackage, f));
-            Formula packageDependenciesFormula = getPackageDependenciesFormula(nextRepoPackage, f, packageVersions);
-            Formula packageConflictsFormula = getPackageConflictsFormula(nextRepoPackage, f, packageVersions);
+            try {
+                Formula packageDefinitionFormula = f.not(getPackageVariable(nextRepoPackage, f));
+                Formula packageDependenciesFormula = getPackageDependenciesFormula(nextRepoPackage, f, packageVersions);
+                Formula packageConflictsFormula = getPackageConflictsFormula(nextRepoPackage, f, packageVersions);
+                packageDefinitionFormulas.add(f.or(packageDefinitionFormula, f.and(packageDependenciesFormula, packageConflictsFormula)));
+            } catch(NonexistantDependencyException e) {
+                packageDefinitionFormulas.add(f.not(getPackageVariable(nextRepoPackage, f)));
+            }
 
-            packageDefinitionFormulas.add(f.or(packageDefinitionFormula, f.and(packageDependenciesFormula, packageConflictsFormula)));
+
         }
 
         return f.and(packageDefinitionFormulas);

@@ -21,16 +21,14 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="146" column="25" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+            <state relative-caret-position="281">
+              <caret line="265" selection-start-line="265" selection-end-line="267" selection-end-column="97" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
                 <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-                <element signature="method#hasUnmetDependencies#0;class#Main#0" />
                 <element signature="method#comparePackageVersions#0;class#Main#0" />
                 <element signature="method#constructStringForInstall#0;class#Main#0" />
-                <element signature="method#getSetIntersection#0;class#Main#0" />
                 <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
                 <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
                 <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -49,7 +47,7 @@
       <find>getPackagesFrom</find>
       <find>compareto</find>
       <find>Integer.p</find>
-      <find />
+      <find>Integer.parseInt(p.getVersion()) -  Integer.parseInt(versionNumber)</find>
       <find>versionNumber.compareTo(p.getVersion())</find>
       <find>package</find>
       <find>System.out.print</find>
@@ -64,8 +62,8 @@
     <replaceStrings>
       <replace>versionNumber.compareTo(p.getVersion())</replace>
       <replace>p.getVersion().compareTo(versionNumber)</replace>
-      <replace />
-      <replace />
+      <replace>comparePackageVersions(versionNumber, p.getVersion()) == 0</replace>
+      <replace>comparePackageVersions(versionNumber, p.getVersion())</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -95,7 +93,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -138,8 +135,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -173,7 +171,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main - Seen3">
+  <component name="RunManager" selected="Application.Main - Seen6">
     <configuration name="Main - Example0" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="dependency-solver-2019-kjaunslavietis" />
@@ -304,7 +302,8 @@
       <workItem from="1551219244363" duration="7216000" />
       <workItem from="1551277195617" duration="9701000" />
       <workItem from="1551303331923" duration="5721000" />
-      <workItem from="1551361287825" duration="19390000" />
+      <workItem from="1551361287825" duration="20794000" />
+      <workItem from="1551393850866" duration="3492000" />
     </task>
     <task id="LOCAL-00001" summary="Update install_deps">
       <created>1551221464419</created>
@@ -432,11 +431,18 @@
       <option name="project" value="LOCAL" />
       <updated>1551378728877</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="If we detect a circular dependency, go to next model (as we don't know how to deal with those, lol)">
+      <created>1551387981326</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1551387981326</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88015000" />
+    <option name="totallyTimeSpent" value="92911000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -452,25 +458,25 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49427083" weight="0.3780359" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49427083" visible="true" weight="0.27032736" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.7135417" visible="true" weight="0.3938754" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7135417" weight="0.47412884" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3296875" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32946146" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,22 +503,29 @@
     <MESSAGE value="Fix up version comparison for good" />
     <MESSAGE value="Fix up version comparison for even gooder" />
     <MESSAGE value="Fix up version comparison even more" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix up version comparison even more" />
+    <MESSAGE value="If we detect a circular dependency, go to next model (as we don't know how to deal with those, lol)" />
+    <option name="LAST_COMMIT_MESSAGE" value="If we detect a circular dependency, go to next model (as we don't know how to deal with those, lol)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url />
-          <line>308</line>
+          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <line>159</line>
           <properties />
-          <option name="timeStamp" value="90" />
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/depsolver/Main.java</url>
+          <line>399</line>
+          <properties />
+          <option name="timeStamp" value="93" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="91" />
+      <option name="time" value="94" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -567,19 +580,19 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>((MiniSat) miniSat).solver</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string />
+        <expression-string>((MiniSat) miniSat).config</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>((MiniSat) miniSat).incremental</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -589,7 +602,7 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>((MiniSat) miniSat).validStates</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -609,12 +622,12 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>getSetIntersection(doNotInstall, initial).size()*1000000L</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string />
+        <expression-string>getSetIntersection(doNotInstall, initial).size()*1000000</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -623,16 +636,32 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2431">
+          <caret line="143" column="61" selection-start-line="143" selection-start-column="61" selection-end-line="143" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
+            <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
+            <element signature="method#comparePackageVersions#0;class#Main#0" />
+            <element signature="method#constructStringForInstall#0;class#Main#0" />
+            <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
+            <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
+            <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
+            <element signature="method#getPackageVariable#0;class#Main#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8211">
           <caret line="483" column="37" selection-start-line="483" selection-start-column="37" selection-end-line="483" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -649,10 +678,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -669,10 +696,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -689,10 +714,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -709,10 +732,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -729,10 +750,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -749,10 +768,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -769,10 +786,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -789,10 +804,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -809,10 +822,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -829,10 +840,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -849,10 +858,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -869,10 +876,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -889,10 +894,8 @@
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />
@@ -931,16 +934,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/depsolver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="146" column="25" selection-start-line="146" selection-start-column="25" selection-end-line="146" selection-end-column="25" />
+        <state relative-caret-position="281">
+          <caret line="265" selection-start-line="265" selection-end-line="267" selection-end-column="97" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#removeInitiallySatisfiedConstraints#0;class#Main#0" />
             <element signature="method#getOrderOfInstallsSlow#0;class#Main#0" />
-            <element signature="method#hasUnmetDependencies#0;class#Main#0" />
             <element signature="method#comparePackageVersions#0;class#Main#0" />
             <element signature="method#constructStringForInstall#0;class#Main#0" />
-            <element signature="method#getSetIntersection#0;class#Main#0" />
             <element signature="docComment;method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageDependenciesFormula#0;class#Main#0" />
             <element signature="method#getPackageConflictsFormula#0;class#Main#0" />

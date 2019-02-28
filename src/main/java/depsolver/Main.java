@@ -6,7 +6,6 @@ import org.logicng.formulas.FormulaFactory;
 import org.logicng.formulas.Variable;
 import org.logicng.solvers.MiniSat;
 import org.logicng.solvers.SATSolver;
-import org.logicng.solvers.sat.MiniSatConfig;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,9 +21,14 @@ class NonexistantDependencyException extends Exception {
 }
 
 class CircularDependencyException extends Exception {
-    public CircularDependencyException() {
+    Set<Package> circularPackages;
+
+    public CircularDependencyException(Set<Package> circularPackages) {
         super();
+        this.circularPackages = circularPackages;
     }
+
+
 }
 
 class Package {
@@ -128,6 +132,10 @@ public class Main {
     Set<Package> lowestScoreInstalls = null;
     Set<Package> lowestScoreDoNotInstalls = null;
 
+    Set<Package> lowestScoreInstallsWithCircular = null;
+    Set<Package> lowestScoreDoNotInstallsWithCircular = null;
+    Set<Package> lowestScoreCirculars = null;
+
     Long lowestScore = Long.MAX_VALUE;
 
     for(Assignment nextModel : validModels) {
@@ -138,19 +146,26 @@ public class Main {
 
         if(score <= lowestScore) {
             try {
-                lowestScoreInstalls = getOrderOfInstallsFastButNotWorking(install, doNotInstall, packageVersions);
+                lowestScoreInstalls = getOrderOfInstallsFast(install, doNotInstall, packageVersions);
                 lowestScoreDoNotInstalls = doNotInstall;
                 lowestScore = score;
             } catch(CircularDependencyException e) {
-                continue;
+                lowestScoreDoNotInstallsWithCircular = doNotInstall;
+                lowestScoreCirculars = e.circularPackages;
+                lowestScoreInstallsWithCircular = getSetDifference(install, lowestScoreCirculars);
             }
         }
     }
 
-      if(validModels.isEmpty() || lowestScoreInstalls == null) {
-          System.out.println("[]");
-          return;
-      }
+    if(validModels.isEmpty() || lowestScoreInstalls == null) {
+        if(lowestScoreCirculars != null) {
+            tryResolveCircular(initialPackages, lowestScoreInstallsWithCircular, lowestScoreDoNotInstallsWithCircular, lowestScoreCirculars, packageVersions);
+            return;
+        } else {
+            System.out.println("[]");
+            return;
+        }
+    }
 
 
     Set<Package> uninstalls = getSetIntersection(lowestScoreDoNotInstalls, initialPackages);
@@ -190,6 +205,85 @@ public class Main {
     }
 
     return result;
+  }
+
+    /**
+     * This currently only works under very limited circumstances - initial is empty, package required to break circle doesn't conflict with any existing ones, and there's only two circular guys
+     * @param initial
+     * @param install
+     * @param circulars
+     * @param packageVersions
+     */
+  private static void tryResolveCircular(Set<Package> initial, Set<Package> install, Set<Package> doNotInstall, Set<Package> circulars, Map<String, Set<Package>> packageVersions) {
+      if(circulars.size() != 2) {
+          System.out.println("[]");
+          return;
+      }
+
+      LinkedList<String> result = new LinkedList<>();
+
+      LinkedList<Package> installedPackages = new LinkedList<>();
+
+      LinkedList<Package> packageQueue = new LinkedList<>(install);
+
+      while(!packageQueue.isEmpty()) {
+          Package p = packageQueue.pollFirst();
+
+          if(hasUnmetDependencies(p, installedPackages, packageVersions)) {
+              packageQueue.addLast(p);
+          } else {
+              installedPackages.add(p);
+              result.add(constructStringForInstall(p, true));
+          }
+      }
+
+      List<Package> circularsAsList = new ArrayList<>(circulars);
+
+      Package circular1 = circularsAsList.get(0);
+      Package circular2 = circularsAsList.get(1);
+
+      List<List<String>> circular1DependenciesRaw = circular1.getDepends();
+
+      for(List<String> nextCircular1DependencyRaw : circular1DependenciesRaw) {
+          Set<Set<Package>> nextCircular1Dependency = getPackagesFromString(nextCircular1DependencyRaw, packageVersions);
+          boolean dependencyMet = false;
+
+          for(Set<Package> nextCircular1DependencyOuter : nextCircular1Dependency) {
+              for(Package nextCircular1DependencyInner : nextCircular1DependencyOuter) {
+                  if(installedPackages.contains(nextCircular1DependencyInner)) {
+                      dependencyMet = true;
+                      break;
+                  }
+
+                  if(dependencyMet) break;
+              }
+          }
+
+          if(!dependencyMet) {
+              for(Set<Package> nextUnmetDependencyOuter : nextCircular1Dependency) {
+                  for(Package nextUnmetDependencyInner : nextUnmetDependencyOuter) {
+                      if(nextUnmetDependencyInner != circular2) {
+                          result.add(constructStringForInstall(nextUnmetDependencyInner, true));
+                          result.add(constructStringForInstall(circular1, true));
+                          result.add(constructStringForInstall(nextUnmetDependencyInner, false));
+
+//                          result.push(constructStringForInstall(nextUnmetDependencyInner, true) + ',' + constructStringForInstall(circular1, true) + ',' + constructStringForInstall(nextUnmetDependencyInner, false));
+
+                          result.add(constructStringForInstall(circular2, true));
+
+                          System.out.print('[');
+                          for(String nextCommand : result) {
+                              System.out.print(nextCommand+",");
+                          }
+                          System.out.print(']');
+                          return;
+                      }
+                  }
+              }
+          }
+      }
+
+      System.out.println("[]");
   }
 
   private static LinkedList getOrderOfInstallsSlow(Set<Package> initial, Set<Package> install, Map<String, Set<Package>> packageVersions) {
@@ -242,7 +336,7 @@ public class Main {
       return false;
   }
 
-  private static LinkedHashSet<Package> getOrderOfInstallsFastButNotWorking(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) throws CircularDependencyException {
+  private static LinkedHashSet<Package> getOrderOfInstallsFast(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) throws CircularDependencyException {
       HashMap<Package, List<Package>> incomingEdges = new HashMap<>();
       HashMap<Package, List<Package>> outgoingEdges = new HashMap<>();
 
@@ -303,7 +397,11 @@ public class Main {
           }
       }
 
-      if(result.size() < install.size()) throw new CircularDependencyException();
+      if(result.size() < install.size()) {
+          Set<Package> difference = new HashSet<>(install);
+          difference.removeAll(result);
+          throw new CircularDependencyException(difference);
+      }
       Collections.reverse(result); // need to avoid creating a circular guy, as happens in seen-6
       return new LinkedHashSet<>(result);
   }
@@ -370,6 +468,13 @@ public class Main {
 
       return doNotInstallAndInitialIntersection;
   }
+
+    private static Set<Package> getSetDifference(Set<Package> set1, Set<Package> set2) {
+        Set<Package> doNotInstallAndInitialIntersection = new HashSet<>(set1);
+        doNotInstallAndInitialIntersection.removeAll(set2);
+
+        return doNotInstallAndInitialIntersection;
+    }
 
   /**
    * Gets a list of valid states using a SAT solver.
@@ -628,21 +733,5 @@ public class Main {
     StringBuilder sb = new StringBuilder();
     br.lines().forEach(line -> sb.append(line));
     return sb.toString();
-  }
-
-  static void printAnswer(List<Package> repo) {
-
-    // CHANGE CODE BELOW:
-    // using repo, initial and constraints, compute a solution and print the answer
-    for (Package p : repo) {
-      System.out.printf("package %s version %s\n", p.getName(), p.getVersion());
-      for (List<String> clause : p.getDepends()) {
-        System.out.printf("  dep:");
-        for (String q : clause) {
-          System.out.printf(" %s", q);
-        }
-        System.out.printf("\n");
-      }
-    }
   }
 }

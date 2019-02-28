@@ -263,11 +263,31 @@ public class Main {
               for(Set<Package> nextUnmetDependencyOuter : nextCircular1Dependency) {
                   for(Package nextUnmetDependencyInner : nextUnmetDependencyOuter) {
                       if(nextUnmetDependencyInner != circular2) {
+                          Set<Package> previouslyInstalledConflicts = new HashSet<>();
+
+                          for(Package p : installedPackages) {
+                              List<String> conflictsRaw = p.getConflicts();
+                              Set<Set<Package>> conflicts = getPackagesFromString(conflictsRaw, packageVersions);
+
+                              for(Set<Package> nextConflictOuter : conflicts) {
+                                  for(Package nextConflictInner : nextConflictOuter) {
+                                      if(nextConflictInner == nextUnmetDependencyInner) {
+                                          previouslyInstalledConflicts.add(p);
+                                      }
+                                  }
+                              }
+                          }
+
+                          for(Package nextPreviouslyInstalledConflict : previouslyInstalledConflicts) {
+                              result.add(constructStringForInstall(nextPreviouslyInstalledConflict, false));
+                          }
                           result.add(constructStringForInstall(nextUnmetDependencyInner, true));
                           result.add(constructStringForInstall(circular1, true));
                           result.add(constructStringForInstall(nextUnmetDependencyInner, false));
 
-//                          result.push(constructStringForInstall(nextUnmetDependencyInner, true) + ',' + constructStringForInstall(circular1, true) + ',' + constructStringForInstall(nextUnmetDependencyInner, false));
+                          for(Package nextPreviouslyInstalledConflict : previouslyInstalledConflicts) {
+                              result.add(constructStringForInstall(nextPreviouslyInstalledConflict, true));
+                          }
 
                           result.add(constructStringForInstall(circular2, true));
 

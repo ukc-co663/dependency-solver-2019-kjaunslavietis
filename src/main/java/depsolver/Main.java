@@ -272,9 +272,12 @@ public class Main {
                           result.add(constructStringForInstall(circular2, true));
 
                           System.out.print('[');
+                          String commandString = "";
                           for(String nextCommand : result) {
-                              System.out.print(nextCommand+",");
+                              commandString += nextCommand + ',';
                           }
+                          if(commandString.indexOf(',') != -1) commandString = commandString.substring(0, commandString.length() - 1);
+                          System.out.print(commandString);
                           System.out.print(']');
                           return;
                       }

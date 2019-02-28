@@ -81,25 +81,25 @@ public class Main {
       Predicate<Package> versionPredicate;
       if(c.indexOf('>') > -1) {
         if(c.indexOf('=') > -1) {
-          String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
-          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) >= 0;
+          String versionNumber = c.substring(c.indexOf('=') + 1);
+          versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) >= 0;
         } else {
-          String versionNumber = stripVersionNumber(c.substring(c.indexOf('>') + 1));
-          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) > 0;
+          String versionNumber = c.substring(c.indexOf('>') + 1);
+          versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) > 0;
         }
         packageName = c.substring(1, c.indexOf('>'));
       } else if(c.indexOf('<') > -1) {
         if(c.indexOf('=') > -1) {
-          String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
-          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) <= 0;
+          String versionNumber = c.substring(c.indexOf('=') + 1);
+          versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) <= 0;
         } else {
-          String versionNumber = stripVersionNumber(c.substring(c.indexOf('>') + 1));
-          versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).compareTo(versionNumber) < 0;
+          String versionNumber = c.substring(c.indexOf('>') + 1);
+          versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) < 0;
         }
         packageName = c.substring(1, c.indexOf('<'));
       } else if(c.indexOf('=') > -1) {
-        String versionNumber = stripVersionNumber(c.substring(c.indexOf('=') + 1));
-        versionPredicate = (Package p) -> stripVersionNumber(p.getVersion()).equals(versionNumber);
+        String versionNumber = c.substring(c.indexOf('=') + 1);
+        versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) == 0;
         packageName = c.substring(1, c.indexOf('='));
       } else {
         versionPredicate = (Package p) -> true;

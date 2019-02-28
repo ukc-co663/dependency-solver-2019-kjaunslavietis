@@ -296,8 +296,8 @@ public class Main {
   private static int comparePackageVersions(String a, String b) {
       if(a.equals(b)) return 0;
       
-      String[] aSplit = a.split(".");
-      String[] bSplit = b.split(".");
+      String[] aSplit = a.split("\\.");
+      String[] bSplit = b.split("\\.");
       
       int minLength = Math.min(aSplit.length, bSplit.length);
       
@@ -498,19 +498,6 @@ public class Main {
         }
 
         return resultPackages;
-    }
-
-    private static String stripVersionNumber(String versionNumber) {
-        String[] parts = versionNumber.split(".");
-        StringBuffer result = new StringBuffer();
-        for(String nextPart : parts) {
-            Integer nextPartInt = Integer.parseInt(nextPart);
-            result.append(nextPartInt + ".");
-        }
-
-        if(result.indexOf(".") != -1) result.deleteCharAt(result.length() - 1);
-
-        return result.toString();
     }
 
     /**

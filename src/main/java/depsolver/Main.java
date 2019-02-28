@@ -293,6 +293,36 @@ public class Main {
       return new LinkedHashSet<>(result);
   }
 
+  private static int comparePackageVersions(String a, String b) {
+      if(a.equals(b)) return 0;
+      
+      String[] aSplit = a.split(".");
+      String[] bSplit = b.split(".");
+      
+      int minLength = Math.min(aSplit.length, bSplit.length);
+      
+      for(int i = 0; i <= minLength; i ++) {
+          if(i == aSplit.length && i == bSplit.length) {
+              return 0;
+          } else if(i == aSplit.length && i < bSplit.length) {
+              return 1;
+          } else if(i == bSplit.length && i < aSplit.length) {
+              return -1;
+          }
+          
+          String aPart = aSplit[i];
+          String bPart = bSplit[i];
+          
+          int aInt = Integer.parseInt(aPart);
+          int bInt = Integer.parseInt(bPart);
+          
+          if(aInt > bInt) return -1;
+          else if(aInt < bInt) return 1;
+      }
+      
+      return 0;
+  }
+
   private static String constructStringForInstall(Package p, boolean install) {
       StringBuilder s = new StringBuilder();
       s.append('"');
@@ -439,24 +469,24 @@ public class Main {
             if(c.indexOf('>') > -1) {
                 if(c.indexOf('=') > -1) {
                     String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) >= 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) >= 0;
                 } else {
                     String versionNumber = c.substring(c.indexOf('>') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) > 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) > 0;
                 }
                 packageName = c.substring(0, c.indexOf('>'));
             } else if(c.indexOf('<') > -1) {
                 if(c.indexOf('=') > -1) {
                     String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) <= 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) <= 0;
                 } else {
                     String versionNumber = c.substring(c.indexOf('<') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) < 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) < 0;
                 }
                 packageName = c.substring(0, c.indexOf('<'));
             } else if(c.indexOf('=') > -1) {
                 String versionNumber = c.substring(c.indexOf('=') + 1);
-                versionPredicate = (Package p) -> p.getVersion().equals(versionNumber);
+                versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) == 0;
                 packageName = c.substring(0, c.indexOf('='));
             } else {
                 versionPredicate = (Package p) -> true;
@@ -499,24 +529,24 @@ public class Main {
             if(c.indexOf('>') > -1) {
                 if(c.indexOf('=') > -1) {
                     String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) >= 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) >= 0;
                 } else {
                     String versionNumber = c.substring(c.indexOf('>') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) > 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) > 0;
                 }
                 packageName = c.substring(0, c.indexOf('>'));
             } else if(c.indexOf('<') > -1) {
                 if(c.indexOf('=') > -1) {
                     String versionNumber = c.substring(c.indexOf('=') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) <= 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) <= 0;
                 } else {
                     String versionNumber = c.substring(c.indexOf('<') + 1);
-                    versionPredicate = (Package p) -> p.getVersion().compareTo(versionNumber) < 0;
+                    versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) < 0;
                 }
                 packageName = c.substring(0, c.indexOf('<'));
             } else if(c.indexOf('=') > -1) {
                 String versionNumber = c.substring(c.indexOf('=') + 1);
-                versionPredicate = (Package p) -> p.getVersion().equals(versionNumber);
+                versionPredicate = (Package p) -> comparePackageVersions(versionNumber, p.getVersion()) == 0;
                 packageName = c.substring(0, c.indexOf('='));
             } else {
                 versionPredicate = (Package p) -> true;

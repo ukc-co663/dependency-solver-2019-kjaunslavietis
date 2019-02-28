@@ -6,6 +6,7 @@ import org.logicng.formulas.FormulaFactory;
 import org.logicng.formulas.Variable;
 import org.logicng.solvers.MiniSat;
 import org.logicng.solvers.SATSolver;
+import org.logicng.solvers.sat.MiniSatConfig;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,6 +17,12 @@ import java.util.stream.Collectors;
 
 class NonexistantDependencyException extends Exception {
     public NonexistantDependencyException() {
+        super();
+    }
+}
+
+class CircularDependencyException extends Exception {
+    public CircularDependencyException() {
         super();
     }
 }
@@ -40,6 +47,7 @@ class Package {
 }
 
 public class Main {
+    private static Set<Package> packagesWeCareAbout = new HashSet<>();
   private static HashMap<String, Package> stringToPackageMappings = new HashMap<>();
 
   private static HashMap<String, Set<Package>> getPackageVersions(List<Package> repo) {
@@ -119,11 +127,9 @@ public class Main {
 
     Set<Package> lowestScoreInstalls = null;
     Set<Package> lowestScoreDoNotInstalls = null;
+
     Long lowestScore = Long.MAX_VALUE;
-    if(validModels.isEmpty()) {
-        System.out.println("[]");
-        return;
-    }
+
     for(Assignment nextModel : validModels) {
         Set<Package> install = nextModel.positiveLiterals().stream().map(v -> stringToPackageMappings.get(v.name())).collect(Collectors.toSet());
         Set<Package> doNotInstall = nextModel.negativeVariables().stream().map(v -> stringToPackageMappings.get(v.name())).collect(Collectors.toSet());
@@ -131,17 +137,26 @@ public class Main {
         Long score = calculateModelScore(install, doNotInstall, initialPackages);
 
         if(score <= lowestScore) {
-            lowestScoreInstalls = install;
-            lowestScoreDoNotInstalls = doNotInstall;
-            lowestScore = score;
+            try {
+                lowestScoreInstalls = getOrderOfInstallsFastButNotWorking(install, doNotInstall, packageVersions);
+                lowestScoreDoNotInstalls = doNotInstall;
+                lowestScore = score;
+            } catch(CircularDependencyException e) {
+                continue;
+            }
         }
     }
+
+      if(validModels.isEmpty() || lowestScoreInstalls == null) {
+          System.out.println("[]");
+          return;
+      }
 
 
     Set<Package> uninstalls = getSetIntersection(lowestScoreDoNotInstalls, initialPackages);
     initialPackages.removeAll(uninstalls);
 
-    LinkedList<Package> installs = getOrderOfInstallsSlow(initialPackages, lowestScoreInstalls, packageVersions);
+//    LinkedList<Package> installs = getOrderOfInstallsSlow(initialPackages, lowestScoreInstalls, packageVersions);
 
     System.out.print('[');
     String actionString = "";
@@ -149,7 +164,7 @@ public class Main {
         actionString += constructStringForInstall(nextUninstall, false) + ',';
     }
 
-    for(Package nextInstall : installs) {
+    for(Package nextInstall : lowestScoreInstalls) {
         if(!initialPackages.contains(nextInstall)) actionString += constructStringForInstall(nextInstall, true) + ',';
     }
 
@@ -227,7 +242,7 @@ public class Main {
       return false;
   }
 
-  private static LinkedHashSet<Package> getOrderOfInstallsFastButNotWorking(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) {
+  private static LinkedHashSet<Package> getOrderOfInstallsFastButNotWorking(Set<Package> install, Set<Package> doNotInstall, Map<String, Set<Package>> packageVersions) throws CircularDependencyException {
       HashMap<Package, List<Package>> incomingEdges = new HashMap<>();
       HashMap<Package, List<Package>> outgoingEdges = new HashMap<>();
 
@@ -252,10 +267,10 @@ public class Main {
                         if(install.contains(nextDependencyOrInner) && !doNotInstall.contains(nextDependencyOrInner)) validDependenciesOrInner.add(nextDependencyOrInner); // we can stop as soon as we find one
                     }
 
-                    validDependenciesOrOuter.addAll(validDependenciesOrInner); // we only care about one that matches. we can stop as soon as we find one
+                    if(!validDependenciesOrInner.isEmpty()) validDependenciesOrOuter.add(validDependenciesOrInner.getFirst()); // we only care about one that matches. we can stop as soon as we find one
                 }
 
-                validDependenciesAnd.add(validDependenciesOrOuter.stream().filter(nextDependency -> incomingEdges.get(nextDependency) == null || !incomingEdges.get(nextDependency).contains(nextPackageToInstall)).findFirst().get());
+                validDependenciesAnd.add(validDependenciesOrOuter.getFirst());
           }
 
           List<Package> previousIncomingEdges = incomingEdges.getOrDefault(nextPackageToInstall, new LinkedList<>());
@@ -288,7 +303,7 @@ public class Main {
           }
       }
 
-
+      if(result.size() < install.size()) throw new CircularDependencyException();
       Collections.reverse(result); // need to avoid creating a circular guy, as happens in seen-6
       return new LinkedHashSet<>(result);
   }
@@ -341,13 +356,10 @@ public class Main {
       Long score = 0L;
 
       for(Package installed : install) {
-          if(!initial.contains(installed)) score += installed.getSize();
+          if(!initial.contains(installed)) score += (long)(installed.getSize());
       }
 
-      Set<Package> doNotInstallAndInitialIntersection = new HashSet<>(doNotInstall);
-      doNotInstallAndInitialIntersection.retainAll(initial);
-
-      score += 1000000 * (getSetIntersection(doNotInstall, initial).size());
+      score += 1000000L * (getSetIntersection(doNotInstall, initial).size());
 
       return score;
   }
@@ -373,26 +385,36 @@ public class Main {
 
     List<Formula> mustInstallAndFormulas = new LinkedList<>();
 
+    Set<Package> packagesWeCareAbout = new HashSet<>();
+    Set<Package> alreadyExpanded = new HashSet<>();
+
     for(Set<Package> nextMustInstallAndGroup : packages) {
         List<Formula> mustInstallOrFormulas = new LinkedList<>();
 
         for(Package nextMustInstallOr : nextMustInstallAndGroup) {
             mustInstallOrFormulas.add(getPackageVariable(nextMustInstallOr, f));
+            getPackagesWeCareAbout(nextMustInstallOr, packagesWeCareAbout, alreadyExpanded, packageVersions);
         }
 
         Formula mustInstallOrFormula = f.or(mustInstallOrFormulas);
         mustInstallAndFormulas.add(mustInstallOrFormula);
     }
 
+    packagesWeCareAbout.addAll(doNotWantPackages);
+
     Formula mustInstallAndFormula = f.and(mustInstallAndFormulas);
 
     Formula finalFormula = f.and(packageDefinitionsFormula, mustNotInstall, mustInstallAndFormula);
-
-    final SATSolver miniSat = MiniSat.miniSat(f);
+      final SATSolver miniSat = MiniSat.miniSat(f);
     miniSat.add(finalFormula);
     miniSat.sat();
 
-    List<Assignment> possibleModels = miniSat.enumerateAllModels(); // get OutOfMemoryError here. use a list of variables that's filtered on ones we're definitely not using?
+
+
+
+    Set<Variable> variablesWeCareAbout = packagesWeCareAbout.stream().map(p -> getPackageVariable(p, f)).collect(Collectors.toSet());
+//    List<Assignment> possibleModels = Collections.singletonList(miniSat.model(variablesWeCareAbout));
+    List<Assignment> possibleModels = miniSat.enumerateAllModels(variablesWeCareAbout); // get OutOfMemoryError here. use a list of variables that's filtered on ones we're definitely not using?
     return possibleModels;
   }
 
@@ -451,6 +473,32 @@ public class Main {
       return f.variable(variableName);
   }
 
+  private static Set<Package> getPackagesWeCareAbout(Package p, Set<Package> answer, Set<Package> alreadyExpanded, Map<String, Set<Package>> packageVersions) {
+      if(alreadyExpanded.contains(p)) return answer;
+      alreadyExpanded.add(p);
+      answer.add(p);
+
+      List<String> packageConflictsRaw = p.getConflicts();
+      Set<Set<Package>> packageConflicts = getPackagesFromString(packageConflictsRaw, packageVersions);
+
+      for(Set<Package> nextPackageConflictOuter : packageConflicts) {
+          for(Package nextPackageConflictInner : nextPackageConflictOuter) {
+              answer.add(nextPackageConflictInner);
+          }
+      }
+
+      List<List<String>> packageDependenciesRaw = p.getDepends();
+      for(List<String> nextPackageDependencyRaw : packageDependenciesRaw) {
+          Set<Set<Package>> nextPackageDependency = getPackagesFromString(nextPackageDependencyRaw, packageVersions);
+          for(Set<Package> nextPackageDependencyOuter : nextPackageDependency) {
+              for(Package nextPackageDependencyInner : nextPackageDependencyOuter) {
+                  getPackagesWeCareAbout(nextPackageDependencyInner, answer, alreadyExpanded, packageVersions);
+              }
+          }
+      }
+
+      return answer;
+  }
 
 
     /**

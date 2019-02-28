@@ -1,5 +1,3 @@
 #!/bin/bash
-CLASSPATH=.:../lib/*
-cd classes
+CLASSPATH=classes:lib/*
 java -cp "$CLASSPATH" Main $@
-cd ..

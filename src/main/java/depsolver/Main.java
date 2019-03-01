@@ -263,7 +263,7 @@ public class Main {
               for(Set<Package> nextUnmetDependencyOuter : nextCircular1Dependency) {
                   for(Package nextUnmetDependencyInner : nextUnmetDependencyOuter) {
                       if(nextUnmetDependencyInner != circular2) {
-                          Set<Package> previouslyInstalledConflicts = new HashSet<>();
+//                          Set<Package> previouslyInstalledConflicts = new HashSet<>();
 
                           for(Package p : installedPackages) {
                               List<String> conflictsRaw = p.getConflicts();
@@ -272,24 +272,24 @@ public class Main {
                               for(Set<Package> nextConflictOuter : conflicts) {
                                   for(Package nextConflictInner : nextConflictOuter) {
                                       if(nextConflictInner == nextUnmetDependencyInner) {
-                                          previouslyInstalledConflicts.add(p);
+                                          result.remove(constructStringForInstall(p, true));
                                       }
                                   }
                               }
                           }
 
-                          for(Package nextPreviouslyInstalledConflict : previouslyInstalledConflicts) {
-                              result.add(constructStringForInstall(nextPreviouslyInstalledConflict, false));
-                          }
+//                          for(Package nextPreviouslyInstalledConflict : previouslyInstalledConflicts) {
+//                              result.add(constructStringForInstall(nextPreviouslyInstalledConflict, false));
+//                          }
                           result.add(constructStringForInstall(nextUnmetDependencyInner, true));
                           result.add(constructStringForInstall(circular1, true));
-                          result.add(constructStringForInstall(nextUnmetDependencyInner, false));
-
-                          for(Package nextPreviouslyInstalledConflict : previouslyInstalledConflicts) {
-                              result.add(constructStringForInstall(nextPreviouslyInstalledConflict, true));
-                          }
-
                           result.add(constructStringForInstall(circular2, true));
+//                          result.add(constructStringForInstall(nextUnmetDependencyInner, false));
+
+//                          for(Package nextPreviouslyInstalledConflict : previouslyInstalledConflicts) {
+//                              result.add(constructStringForInstall(nextPreviouslyInstalledConflict, true));
+//                          }
+
 
                           System.out.print('[');
                           String commandString = "";
